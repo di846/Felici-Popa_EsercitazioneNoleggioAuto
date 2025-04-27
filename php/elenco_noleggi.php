@@ -31,18 +31,15 @@
                 $sql = "SELECT Noleggi.*, Auto.marca, Auto.modello 
                         FROM Noleggi 
                         JOIN Auto ON Noleggi.auto = Auto.targa
-                        WHERE socio = ? 
-                        AND inizio >= ? 
-                        AND fine <= ?
+                        WHERE socio = '$cf' 
+                        AND inizio >= '$inizio' 
+                        AND fine <= '$fine'
                         ORDER BY inizio";
 
-                $stmt = $conn->prepare($sql);
-                $stmt->bind_param("sss", $cf, $inizio, $fine);
-                $stmt->execute();
-                $result = $stmt->get_result();
+                $result = mysqli_query($conn, $sql);
 
                 // Verifica se ci sono risultati
-                if ($result->num_rows === 0) {
+                if (mysqli_num_rows($result) === 0) {
                     echo "Nessun noleggio trovato per il socio nel periodo selezionato.";
                 } else {
                     echo "<table border='1' cellpadding='5'>
@@ -56,7 +53,7 @@
                                 <th>Restituita</th>
                             </tr>";
                     // Stampa i risultati
-                    while ($row = $result->fetch_assoc()) {
+                    while ($row = mysqli_fetch_assoc($result)) {
                         echo "<tr>
                                 <td>{$row['codice_noleggio']}</td>
                                 <td>{$row['auto']}</td>
@@ -70,9 +67,8 @@
                     echo "</table>";
                 }
 
-                // Chiude la connessione al database
-                $stmt->close();
-                $conn->close();
+                mysqli_free_result($result);
+                mysqli_close($conn);
             } catch (Exception $e) {
                 echo "Si è verificato un errore: " . htmlspecialchars($e->getMessage());
             }
