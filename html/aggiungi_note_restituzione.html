@@ -8,14 +8,18 @@
 <body>
     <h1>Aggiungi note restituzione</h1>
     <form action="http://localhost/Felici-Popa_EsercitazioneNoleggioAuto/php/aggiungi_note_restituzione.php" method="post">
+        <!-- Campo per inserire il codice del noleggio -->
         <label for="codice_noleggio">Codice Noleggio:</label>
         <input type="number" id="codice_noleggio" name="codice_noleggio" required>
         <br>
+        <!-- Campo per inserire note su danni o problemi -->
         <label for="note">Note su danni o problemi:</label>
         <br>
         <textarea id="note" name="note" rows="5" cols="40" required></textarea>
         <br>
         <button type="submit">Aggiungi Note</button>
     </form>
+    <!-- Link per tornare al menu principale -->
+    <a href="../index.html" class="back-to-menu-link">Torna al Menu</a>
 </body>
 </html>

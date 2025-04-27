@@ -3,12 +3,14 @@
     <head>
         <meta charset='UTF-8'>
         <title>Noleggi effettuati da un socio</title>
+        <link rel="stylesheet" href="../css/style.css">
     </head>
     <body>
         <h1>Noleggi effettuati da un socio</h1>
         <?php
             include "config.php";
 
+            // Recupera i dati dal form
             $cf = $_POST['cf'] ?? '';
             $inizio = $_POST['inizio'] ?? '';
             $fine = $_POST['fine'] ?? '';
@@ -18,12 +20,14 @@
                 exit;
             }
 
+            // Connessione al database
             $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, "Carsharing");
             if (!$conn) {
                 echo "Errore di connessione al database. " . mysqli_connect_error();
                 exit;
             }
 
+            // Query per ottenere i noleggi del socio nel periodo selezionato
             $sql = "SELECT Noleggi.*, Auto.marca, Auto.modello 
                     FROM Noleggi 
                     JOIN Auto ON Noleggi.auto = Auto.targa
@@ -37,6 +41,7 @@
                 exit;
             }
 
+            // Verifica se ci sono risultati
             if (mysqli_num_rows($result) === 0) {
                 echo "Nessun noleggio trovato per il socio nel periodo selezionato.";
             } else {
@@ -50,6 +55,7 @@
                             <th>Fine</th>
                             <th>Restituita</th>
                         </tr>";
+                // Stampa i risultati
                 while ($row = mysqli_fetch_assoc($result)) {
                     echo "<tr>
                             <td>{$row['codice_noleggio']}</td>
@@ -64,7 +70,9 @@
                 echo "</table>";
             }
 
+            // Chiude la connessione al database
             mysqli_close($conn);
         ?>
+        <a href="/Felici-Popa_EsercitazioneNoleggioAuto/index.html" class="back-to-menu-link">Torna al Menu</a>
     </body>
 </html>

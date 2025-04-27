@@ -1,5 +1,6 @@
 <?php
     header("Access-Control-Allow-Origin: *");
+
     function setup_database()
     {
         include "config.php";
@@ -26,6 +27,7 @@
             echo "Errore nella selezione del database ".mysqli_error($connection);
         }
 
+        // Creazione tabella Auto
         $sql = "CREATE TABLE IF NOT EXISTS Auto (
                     targa VARCHAR(7) PRIMARY KEY,
                     marca VARCHAR(50) NOT NULL,
@@ -40,6 +42,7 @@
                 mysqli_error($connection);
         }
 
+        // Creazione tabella Soci
         $sql = "CREATE TABLE IF NOT EXISTS Soci (
                     CF VARCHAR(16) PRIMARY KEY,
                     cognome VARCHAR(50) NOT NULL,
@@ -54,6 +57,7 @@
             echo "Errore nella creazione di Soci " .mysqli_error($connection);
         }
 
+        // Creazione tabella Noleggi con chiavi esterne
         $sql = "CREATE TABLE IF NOT EXISTS Noleggi (
                     codice_noleggio INT AUTO_INCREMENT PRIMARY KEY,
                     inizio datetime NOT NULL,

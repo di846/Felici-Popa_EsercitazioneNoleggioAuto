@@ -3,6 +3,7 @@
     <head>
         <meta charset='UTF-8'>
         <title>Calcola costi aggiuntivi noleggio</title>
+        <link rel="stylesheet" href="../css/style.css">
     </head>
     <body>
         <h1>Calcola costi aggiuntivi noleggio</h1>
@@ -16,12 +17,14 @@
                 exit;
             }
 
+            // Connessione al database
             $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, "Carsharing");
             if (!$conn) {
                 echo "Errore di connessione al database. " . mysqli_connect_error();
                 exit;
             }
 
+            // Query per ottenere i dati del noleggio e dell'auto
             $sql = "SELECT Noleggi.*, Auto.costo_giornaliero 
                     FROM Noleggi 
                     JOIN Auto ON Noleggi.auto = Auto.targa
@@ -45,30 +48,35 @@
                 $inizio_dt = new DateTime($inizio);
                 $fine_prevista_dt = new DateTime($fine_prevista);
 
+                // Calcolo della data di fine effettiva
                 if ($restituita) {
                     $fine_effettiva_dt = new DateTime($restituita);
                 } else {
                     $fine_effettiva_dt = new DateTime(); // ora
                 }
 
+                // Calcolo dei giorni previsti ed effettivi
                 $giorni_previsti = $inizio_dt->diff($fine_prevista_dt)->days;
                 if ($giorni_previsti == 0) $giorni_previsti = 1;
 
                 $giorni_effettivi = $inizio_dt->diff($fine_effettiva_dt)->days;
                 if ($giorni_effettivi == 0) $giorni_effettivi = 1;
 
+                // Calcolo dei costi
                 $costo_previsto = $giorni_previsti * $costo_giornaliero;
                 $costo_effettivo = $giorni_effettivi * $costo_giornaliero;
 
                 $costi_aggiuntivi = 0;
                 $penale = 0;
 
+                // Calcolo della penale in caso di ritardo
                 if ($giorni_effettivi > $giorni_previsti) {
                     $giorni_ritardo = $giorni_effettivi - $giorni_previsti;
                     $penale = $giorni_ritardo * $costo_giornaliero * 0.2;
                     $costi_aggiuntivi = $costo_effettivo - $costo_previsto + $penale;
                 }
 
+                // Visualizzazione dei risultati
                 echo "<table border='1' cellpadding='5'>
                         <tr><th>Codice Noleggio</th><td>{$row['codice_noleggio']}</td></tr>
                         <tr><th>Data inizio</th><td>{$inizio}</td></tr>
@@ -86,5 +94,6 @@
 
             mysqli_close($conn);
         ?>
+        <a href="/Felici-Popa_EsercitazioneNoleggioAuto/index.html" class="back-to-menu-link">Torna al Menu</a>
     </body>
 </html>

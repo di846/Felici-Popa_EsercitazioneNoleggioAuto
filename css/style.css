@@ -266,67 +266,25 @@ hr {
     margin: 1rem 0;
 }
 
-@media (max-width: 768px) {
-    .container,
-    body > h1 + form,
-    body > h1 + p + form,
-    body > h1 + table,
-    body > h1 + .error,
-    body > h1 + .success {
-        margin: 1rem;
-        padding: 20px;
-    }
+.back-to-menu-link {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    background-color: #007bff;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.9em;
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+    z-index: 1000;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
 
-    h1 {
-        font-size: 1.8rem;
-    }
-
-    h2 {
-        font-size: 1.5rem;
-    }
-
-    form input[type="text"],
-    form input[type="date"],
-    form input[type="datetime-local"],
-    form input[type="number"],
-    form select,
-    form textarea {
-        padding: 10px 12px;
-    }
-
-    form button[type="submit"] {
-        width: 100%;
-        padding: 12px;
-    }
-
-    table, thead, tbody, th, td, tr {
-        display: block;
-    }
-
-    thead tr {
-        position: absolute;
-        top: -9999px;
-        left: -9999px;
-    }
-
-    tr { border: 1px solid #ccc; margin-bottom: 1rem; }
-
-    td {
-        border: none;
-        border-bottom: 1px solid #eee;
-        position: relative;
-        padding-left: 50%;
-        text-align: right;
-    }
-
-    td:before {
-        position: absolute;
-        left: 6px;
-        width: 45%;
-        padding-right: 10px;
-        white-space: nowrap;
-        text-align: left;
-        font-weight: bold;
-        content: attr(data-label);
-    }
+.back-to-menu-link:hover {
+    background-color: #0056b3;
+    text-decoration: none;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.4);
 }

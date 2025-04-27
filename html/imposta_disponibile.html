@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Imposta auto disponibile</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style.css"> <!-- Collegamento al file CSS -->
 </head>
 <body>
     <h1>Imposta auto come disponibile</h1>
     <form action="http://localhost/Felici-Popa_EsercitazioneNoleggioAuto/php/imposta_disponibile.php" method="post">
+        <!-- Campo per inserire la targa dell'auto -->
         <label for="targa">Targa auto:</label>
         <input type="text" id="targa" name="targa" maxlength="7" required>
         <button type="submit">Imposta disponibile</button>
     </form>
+    <!-- Link per tornare al menu principale -->
+    <a href="../index.html" class="back-to-menu-link">Torna al Menu</a>
 </body>
 </html>

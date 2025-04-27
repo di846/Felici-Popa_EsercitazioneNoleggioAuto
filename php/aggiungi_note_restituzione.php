@@ -3,26 +3,31 @@
     <head>
         <meta charset='UTF-8'>
         <title>Aggiungi note restituzione</title>
+        <link rel="stylesheet" href="../css/style.css">
     </head>
     <body>
         <h1>Aggiungi note restituzione</h1>
         <?php
             include "config.php";
 
+            // Recupera i dati dal form
             $codice_noleggio = $_POST['codice_noleggio'] ?? '';
             $note = $_POST['note'] ?? '';
 
+            // Verifica che tutti i campi siano compilati
             if (!$codice_noleggio || !$note) {
                 echo "Compila tutti i campi.";
                 exit;
             }
 
+            // Connessione al database
             $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, "Carsharing");
             if (!$conn) {
                 echo "Errore di connessione al database. " . mysqli_connect_error();
                 exit;
             }
 
+            // Aggiorna le note di restituzione
             $sql = "UPDATE Noleggi 
                     SET note_restituzione = '$note'
                     WHERE codice_noleggio = $codice_noleggio";
@@ -39,5 +44,6 @@
 
             mysqli_close($conn);
         ?>
+        <a href="/Felici-Popa_EsercitazioneNoleggioAuto/index.html" class="back-to-menu-link">Torna al Menu</a>
     </body>
 </html>

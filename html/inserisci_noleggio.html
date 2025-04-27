@@ -3,20 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Inserisci nuovo noleggio</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style.css"> <!-- Collegamento al file CSS -->
 </head>
 <body>
     <h1>Inserisci nuovo noleggio</h1>
     <form action="http://localhost/Felici-Popa_EsercitazioneNoleggioAuto/php/inserisci_noleggio.php" method="post">
+        <!-- Campo per il codice fiscale del socio -->
         <label for="cf">Codice Fiscale Socio:</label>
         <input type="text" id="cf" name="cf" maxlength="16" required>
+        
+        <!-- Campo per la targa dell'auto -->
         <label for="auto">Targa Auto:</label>
         <input type="text" id="auto" name="auto" maxlength="7" required>
+        
+        <!-- Campo per la data e ora di inizio noleggio -->
         <label for="inizio">Data e ora inizio:</label>
         <input type="datetime-local" id="inizio" name="inizio" required>
+        
+        <!-- Campo per la data e ora di fine noleggio -->
         <label for="fine">Data e ora fine:</label>
         <input type="datetime-local" id="fine" name="fine" required>
+        
         <button type="submit">Inserisci</button>
     </form>
+    <!-- Link per tornare al menu principale -->
+    <a href="../index.html" class="back-to-menu-link">Torna al Menu</a>
 </body>
 </html>

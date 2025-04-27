@@ -3,22 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Inserisci nuovo socio</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style.css"> <!-- Collegamento al file CSS -->
 </head>
 <body>
     <h1>Inserisci nuovo socio</h1>
     <form action="http://localhost/Felici-Popa_EsercitazioneNoleggioAuto/php/inserisci_socio.php" method="post">
+        <!-- Campo per il Codice Fiscale -->
         <label for="cf">Codice Fiscale:</label>
         <input type="text" id="cf" name="cf" maxlength="16" required>
+        
+        <!-- Campo per il Cognome -->
         <label for="cognome">Cognome:</label>
         <input type="text" id="cognome" name="cognome" maxlength="50" required>
+        
+        <!-- Campo per il Nome -->
         <label for="nome">Nome:</label>
         <input type="text" id="nome" name="nome" maxlength="50" required>
+        
+        <!-- Campo per l'Indirizzo -->
         <label for="indirizzo">Indirizzo:</label>
         <input type="text" id="indirizzo" name="indirizzo" maxlength="150" required>
+        
+        <!-- Campo per il Telefono -->
         <label for="telefono">Telefono:</label>
         <input type="text" id="telefono" name="telefono" maxlength="20" required>
-        <button type="submit">Inserisci</button>
+        
+        <button type="submit">Inserisci</button> <!-- Pulsante per inviare il modulo -->
     </form>
+    <a href="../index.html" class="back-to-menu-link">Torna al Menu</a>
 </body>
 </html>

@@ -3,18 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Noleggi effettuati da un socio</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style.css"> <!-- Collegamento al file CSS -->
 </head>
 <body>
     <h1>Visualizza noleggi di un socio</h1>
     <form action="http://localhost/Felici-Popa_EsercitazioneNoleggioAuto/php/elenco_noleggi.php" method="POST">
+        <!-- Input per il codice fiscale del socio -->
         <label for="cf">Codice Fiscale Socio:</label>
         <input type="text" id="cf" name="cf" maxlength="16" required>
+        
+        <!-- Input per la data di inizio -->
         <label for="inizio">Data inizio:</label>
         <input type="date" id="inizio" name="inizio" required>
+        
+        <!-- Input per la data di fine -->
         <label for="fine">Data fine:</label>
         <input type="date" id="fine" name="fine" required>
+        
         <button type="submit">Cerca</button>
     </form>
+    <!-- Link per tornare al menu principale -->
+    <a href="../index.html" class="back-to-menu-link">Torna al Menu</a>
 </body>
 </html>
