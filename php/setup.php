@@ -30,6 +30,7 @@
                     targa VARCHAR(7) PRIMARY KEY,
                     marca VARCHAR(50) NOT NULL,
                     modello VARCHAR(50) NOT NULL,
+                    disponibile BOOLEAN DEFAULT 1,
                     costo_giornaliero DECIMAL(4,2) NOT NULL)";
 
         if (mysqli_query($connection, $sql)) {
@@ -58,6 +59,7 @@
                     inizio datetime NOT NULL,
                     fine datetime NOT NULL,
                     auto_restituita datetime DEFAULT NULL,
+                    note_restituzione TEXT DEFAULT NULL,
                     auto varchar(10) NOT NULL,
                     socio varchar(16) NOT NULL,
                     FOREIGN KEY (auto) REFERENCES Auto(targa) ON DELETE CASCADE,

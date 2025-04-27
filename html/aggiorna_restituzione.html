@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Restituzione auto</title>
+</head>
+<body>
+    <h1>Restituzione auto</h1>
+    <form action="http://localhost/Felici-Popa_EsercitazioneNoleggioAuto/php/aggiorna_restituzione.php" method="post">
+        <label for="codice_noleggio">Codice Noleggio:</label>
+        <input type="number" id="codice_noleggio" name="codice_noleggio" required>
+        <label for="data_restituzione">Data e ora restituzione:</label>
+        <input type="datetime-local" id="data_restituzione" name="data_restituzione" required>
+        <button type="submit">Aggiorna</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Inserisci nuovo socio</title>
+</head>
+<body>
+    <h1>Inserisci nuovo socio</h1>
+    <form action="http://localhost/Felici-Popa_EsercitazioneNoleggioAuto/php/inserisci_socio.php" method="post">
+        <label for="cf">Codice Fiscale:</label>
+        <input type="text" id="cf" name="cf" maxlength="16" required>
+        <label for="cognome">Cognome:</label>
+        <input type="text" id="cognome" name="cognome" maxlength="50" required>
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" maxlength="50" required>
+        <label for="indirizzo">Indirizzo:</label>
+        <input type="text" id="indirizzo" name="indirizzo" maxlength="150" required>
+        <label for="telefono">Telefono:</label>
+        <input type="text" id="telefono" name="telefono" maxlength="20" required>
+        <button type="submit">Inserisci</button>
+    </form>
+</body>
+</html>

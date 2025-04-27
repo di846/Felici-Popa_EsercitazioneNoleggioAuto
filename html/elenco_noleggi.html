@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Noleggi effettuati da un socio</title>
+</head>
+<body>
+    <h1>Visualizza noleggi di un socio</h1>
+    <form action="http://localhost/Felici-Popa_EsercitazioneNoleggioAuto/php/elenco_noleggi.php" method="POST">
+        <label for="cf">Codice Fiscale Socio:</label>
+        <input type="text" id="cf" name="cf" maxlength="16" required>
+        <label for="inizio">Data inizio:</label>
+        <input type="date" id="inizio" name="inizio" required>
+        <label for="fine">Data fine:</label>
+        <input type="date" id="fine" name="fine" required>
+        <button type="submit">Cerca</button>
+    </form>
+</body>
+</html>

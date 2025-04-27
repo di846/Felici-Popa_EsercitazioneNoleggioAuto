@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Inserisci nuova auto</title>
+</head>
+<body>
+    <h1>Inserisci nuova auto</h1>
+    <form action="http://localhost/Felici-Popa_EsercitazioneNoleggioAuto/php/inserisci_auto.php" method="post">
+        <label for="targa">Targa:</label>
+        <input type="text" id="targa" name="targa" maxlength="7" required>
+        <label for="marca">Marca:</label>
+        <input type="text" id="marca" name="marca" maxlength="50" required>
+        <label for="modello">Modello:</label>
+        <input type="text" id="modello" name="modello" maxlength="50" required>
+        <label for="costo">Costo giornaliero (€):</label>
+        <input type="number" id="costo" name="costo" step="0.01" min="0" required>
+        <button type="submit">Inserisci</button>
+    </form>
+</body>
+</html>

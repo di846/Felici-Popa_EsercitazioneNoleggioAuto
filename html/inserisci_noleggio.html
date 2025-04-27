@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Inserisci nuovo noleggio</title>
+</head>
+<body>
+    <h1>Inserisci nuovo noleggio</h1>
+    <form action="http://localhost/Felici-Popa_EsercitazioneNoleggioAuto/php/inserisci_noleggio.php" method="post">
+        <label for="cf">Codice Fiscale Socio:</label>
+        <input type="text" id="cf" name="cf" maxlength="16" required>
+        <label for="auto">Targa Auto:</label>
+        <input type="text" id="auto" name="auto" maxlength="7" required>
+        <label for="inizio">Data e ora inizio:</label>
+        <input type="datetime-local" id="inizio" name="inizio" required>
+        <label for="fine">Data e ora fine:</label>
+        <input type="datetime-local" id="fine" name="fine" required>
+        <button type="submit">Inserisci</button>
+    </form>
+</body>
+</html>
