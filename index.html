@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <body>
+        <p>Welcome to the home page!</p>
+        <script>
+            fetch('http://localhost/Felici-Popa_EsercitazioneNoleggioAuto/php/setup.php')
+              .then(response => response.text())
+              .then(data => {
+                  console.log(data);
+              })
+              .catch(error => console.error('Errore:', error));
+          </script>
+    </body>
+</html>
