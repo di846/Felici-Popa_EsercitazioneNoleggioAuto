@@ -2,8 +2,8 @@
 <html>
 <head>
     <title>Home</title>
+    <link rel="stylesheet" href="css/style.css">
     <body>
-        <p>Welcome to the home page!</p>
         <script>
             fetch('http://localhost/Felici-Popa_EsercitazioneNoleggioAuto/php/setup.php')
               .then(response => response.text())
@@ -12,5 +12,24 @@
               })
               .catch(error => console.error('Errore:', error));
           </script>
+              <div class="container">
+
+                <h1>Benvenuto nella Gestione Noleggio Auto</h1>
+        
+                <nav>
+                    <h2>Menu Principale</h2>
+                    <ul>
+                        <li><a href="html/inserisci_socio.html">Inserisci Nuovo Socio</a></li>
+                        <li><a href="html/inserisci_auto.html">Inserisci Nuova Auto</a></li>
+                        <li><a href="html/inserisci_noleggio.html">Inserisci Nuovo Noleggio</a></li>
+                        <li><a href="html/elenco_auto.html">Elenco Auto</a></li>
+                        <li><a href="html/elenco_noleggi.html">Elenco Noleggi</a></li>
+                        <li><a href="html/aggiorna_restituzione.html">Aggiorna Restituzione Auto</a></li>
+                        <li><a href="html/aggiungi_note_restituzione.html">Aggiungi Note alla Restituzione</a></li>
+                        <li><a href="html/calcola_costi_noleggio.html">Calcola Costi Noleggio</a></li>
+                        <li><a href="html/imposta_disponibile.html">Imposta Stato Disponibilità Auto</a></li>
+                    </ul>
+                </nav>
+            </div> 
     </body>
 </html>

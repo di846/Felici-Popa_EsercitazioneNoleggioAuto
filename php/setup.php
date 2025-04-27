@@ -31,7 +31,7 @@
                     marca VARCHAR(50) NOT NULL,
                     modello VARCHAR(50) NOT NULL,
                     disponibile BOOLEAN DEFAULT 1,
-                    costo_giornaliero DECIMAL(4,2) NOT NULL)";
+                    costo_giornaliero INT NOT NULL)";
 
         if (mysqli_query($connection, $sql)) {
             echo "Tabella Auto creata con successo";
