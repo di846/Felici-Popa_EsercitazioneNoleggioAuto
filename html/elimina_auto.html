@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Elimina Auto</title>
+    <link rel="stylesheet" href="../css/style.css"><!-- Collegamento al file CSS -->
+</head>
+<body>
+    <h1>Elimina Auto</h1>
+    <!-- Form per eliminare un'auto tramite la targa -->
+    <form action="../php/elimina_auto.php" method="post">
+        <label for="targa">Targa dell'auto da eliminare:</label>
+        <input type="text" id="targa" name="targa" maxlength="7" required>
+        <button type="submit">Elimina</button>
+    </form>
+    <!-- Link per tornare al menu principale -->
+    <a href="../index.html" class="back-to-menu-link">Torna al Menu</a>
+</body>
+</html>

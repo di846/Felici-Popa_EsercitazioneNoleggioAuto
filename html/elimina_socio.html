@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Elimina Socio</title>
+    <link rel="stylesheet" href="../css/style.css"><!-- Collegamento al file CSS -->
+</head>
+<body>
+    <h1>Elimina Socio</h1>
+    <form action="../php/elimina_socio.php" method="post"> <!-- Form per inviare il codice fiscale -->
+        <label for="cf">Codice Fiscale del Socio da eliminare:</label>
+        <input type="text" id="cf" name="cf" maxlength="16" required> 
+        <button type="submit">Elimina</button> 
+    </form>
+    <a href="../index.html" class="back-to-menu-link">Torna al Menu</a> <!-- Link per tornare al menu -->
+</body>
+</html>
