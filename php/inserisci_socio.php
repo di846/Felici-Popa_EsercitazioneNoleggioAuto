@@ -10,39 +10,43 @@
         <?php
             include "config.php";
 
-            // Recupera i dati dal form
-            $cf = $_POST['cf'] ?? '';
-            $cognome = $_POST['cognome'] ?? '';
-            $nome = $_POST['nome'] ?? '';
-            $indirizzo = $_POST['indirizzo'] ?? '';
-            $telefono = $_POST['telefono'] ?? '';
+            try {
+                // Recupera i dati dal form
+                $cf = $_POST['cf'] ?? '';
+                $cognome = $_POST['cognome'] ?? '';
+                $nome = $_POST['nome'] ?? '';
+                $indirizzo = $_POST['indirizzo'] ?? '';
+                $telefono = $_POST['telefono'] ?? '';
 
-            // Verifica che tutti i campi siano compilati
-            if (!$cf || !$cognome || !$nome || !$indirizzo || !$telefono) {
-                echo "Compila tutti i campi.";
-                exit;
-            }
+                // Verifica che tutti i campi siano compilati
+                if (!$cf || !$cognome || !$nome || !$indirizzo || !$telefono) {
+                    throw new Exception("Compila tutti i campi.");
+                }
 
-            // Connessione al database
-            $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, "Carsharing");
-            if (!$conn) {
-                echo "Errore di connessione al database. " . mysqli_connect_error();
-                exit;
-            }
+                // Connessione al database
+                $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, "Carsharing");
+                if (!$conn) {
+                    throw new Exception("Errore di connessione al database: " . mysqli_connect_error());
+                }
 
-            // Query per inserire un nuovo socio
-            $sql = "INSERT INTO Soci (CF, cognome, nome, indirizzo, telefono) 
-                    VALUES ('$cf', '$cognome', '$nome', '$indirizzo', '$telefono')";
+                // Query per inserire un nuovo socio
+                $sql = "INSERT INTO Soci (CF, cognome, nome, indirizzo, telefono) 
+                        VALUES ('$cf', '$cognome', '$nome', '$indirizzo', '$telefono')";
 
-            // Esegui la query e verifica il risultato
-            if (mysqli_query($conn, $sql)) {
+                // Esegui la query e verifica il risultato
+                if (!mysqli_query($conn, $sql)) {
+                    throw new Exception("Errore nell'inserimento del socio: " . mysqli_error($conn));
+                }
+
                 echo "Socio inserito con successo.";
-            } else {
-                echo "Errore nell'inserimento del socio: " . mysqli_error($conn);
+            } catch (Exception $e) {
+                echo "Si è verificato un errore: " . $e->getMessage();
+            } finally {
+                // Chiudi la connessione al database se esiste
+                if (isset($conn) && $conn) {
+                    mysqli_close($conn);
+                }
             }
-
-            // Chiudi la connessione al database
-            mysqli_close($conn);
         ?>
         <a href="/Felici-Popa_EsercitazioneNoleggioAuto/index.html" class="back-to-menu-link">Torna al Menu</a>
     </body>

@@ -19,38 +19,41 @@
                 exit;
             }
 
-            // Connessione al database
-            $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, "Carsharing");
-            if (!$conn) {
-                echo "Errore di connessione al database. " . mysqli_connect_error();
-                exit;
-            }
+            try {
+                // Abilita la gestione delle eccezioni per MySQLi
+                mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-            // Aggiorna la data di restituzione del noleggio
-            $sql = "UPDATE Noleggi 
-                    SET auto_restituita = '$data_restituzione'
-                    WHERE codice_noleggio = $codice_noleggio";
+                // Connessione al database
+                $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, "Carsharing");
 
-            if (mysqli_query($conn, $sql)) {
-                if (mysqli_affected_rows($conn) > 0) {
-                    // Recupera la targa dell'auto noleggiata
-                    $sql_auto = "SELECT auto FROM Noleggi WHERE codice_noleggio = $codice_noleggio";
-                    $result_auto = mysqli_query($conn, $sql_auto);
-                    if ($row = mysqli_fetch_assoc($result_auto)) {
-                        $targa = $row['auto'];
-                        // Imposta l'auto come disponibile
-                        $sql_update_auto = "UPDATE Auto SET disponibile = 1 WHERE targa = '$targa'";
-                        mysqli_query($conn, $sql_update_auto);
+                // Aggiorna la data di restituzione del noleggio
+                $sql = "UPDATE Noleggi 
+                        SET auto_restituita = '$data_restituzione'
+                        WHERE codice_noleggio = $codice_noleggio";
+
+                if (mysqli_query($conn, $sql)) {
+                    if (mysqli_affected_rows($conn) > 0) {
+                        // Recupera la targa dell'auto noleggiata
+                        $sql_auto = "SELECT auto FROM Noleggi WHERE codice_noleggio = $codice_noleggio";
+                        $result_auto = mysqli_query($conn, $sql_auto);
+                        if ($row = mysqli_fetch_assoc($result_auto)) {
+                            $targa = $row['auto'];
+                            // Imposta l'auto come disponibile
+                            $sql_update_auto = "UPDATE Auto SET disponibile = 1 WHERE targa = '$targa'";
+                            mysqli_query($conn, $sql_update_auto);
+                        }
+                        echo "Restituzione registrata con successo e auto impostata come disponibile.";
+                    } else {
+                        echo "Nessun noleggio trovato con il codice inserito.";
                     }
-                    echo "Restituzione registrata con successo e auto impostata come disponibile.";
-                } else {
-                    echo "Nessun noleggio trovato con il codice inserito.";
                 }
-            } else {
-                echo "Errore nell'aggiornamento della restituzione: " . mysqli_error($conn);
+            } catch (Exception $e) {
+                echo "Si è verificato un errore: " . $e->getMessage();
+            } finally {
+                if (isset($conn) && $conn) {
+                    mysqli_close($conn);
+                }
             }
-
-            mysqli_close($conn);
         ?>
         <a href="/Felici-Popa_EsercitazioneNoleggioAuto/index.html" class="back-to-menu-link">Torna al Menu</a>
     </body>

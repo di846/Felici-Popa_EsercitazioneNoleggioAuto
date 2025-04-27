@@ -10,50 +10,56 @@
         <?php
             include "config.php";
 
-            // Recupero dati dal form
-            $cf = $_POST['cf'] ?? '';
-            $auto = $_POST['auto'] ?? '';
-            $inizio = $_POST['inizio'] ?? '';
-            $fine = $_POST['fine'] ?? '';
+            try {
+                // Recupero dati dal form
+                $cf = $_POST['cf'] ?? '';
+                $auto = $_POST['auto'] ?? '';
+                $inizio = $_POST['inizio'] ?? '';
+                $fine = $_POST['fine'] ?? '';
 
-            // Controllo che tutti i campi siano compilati
-            if (!$cf || !$auto || !$inizio || !$fine) {
-                echo "Compila tutti i campi.";
-                exit;
-            }
+                // Controllo che tutti i campi siano compilati
+                if (!$cf || !$auto || !$inizio || !$fine) {
+                    throw new Exception("Compila tutti i campi.");
+                }
 
-            // Connessione al database
-            $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, "Carsharing");
-            if (!$conn) {
-                echo "Errore di connessione al database. " . mysqli_connect_error();
-                exit;
-            }
+                // Connessione al database
+                $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, "Carsharing");
+                if (!$conn) {
+                    throw new Exception("Errore di connessione al database: " . mysqli_connect_error());
+                }
 
-            // Controllo sovrapposizione periodi di noleggio
-            $sql_periodo = "SELECT * FROM Noleggi 
-                            WHERE auto = '$auto' 
-                            AND (
-                                (inizio <= '$fine' AND fine >= '$inizio')
-                            )";
-            $result_periodo = mysqli_query($conn, $sql_periodo);
-            if (mysqli_num_rows($result_periodo) > 0) {
-                echo "Auto già noleggiata in questo periodo.";
-                mysqli_close($conn);
-                exit;
-            }
+                // Controllo sovrapposizione periodi di noleggio
+                $sql_periodo = "SELECT * FROM Noleggi 
+                                WHERE auto = '$auto' 
+                                AND (
+                                    (inizio <= '$fine' AND fine >= '$inizio')
+                                )";
+                $result_periodo = mysqli_query($conn, $sql_periodo);
+                if (!$result_periodo) {
+                    throw new Exception("Errore nella verifica del periodo: " . mysqli_error($conn));
+                }
 
-            // Inserimento del nuovo noleggio
-            $sql = "INSERT INTO Noleggi (inizio, fine, auto, socio) 
-                    VALUES ('$inizio', '$fine', '$auto', '$cf')";
+                if (mysqli_num_rows($result_periodo) > 0) {
+                    throw new Exception("Auto già noleggiata in questo periodo.");
+                }
 
-            if (mysqli_query($conn, $sql)) {
+                // Inserimento del nuovo noleggio
+                $sql = "INSERT INTO Noleggi (inizio, fine, auto, socio) 
+                        VALUES ('$inizio', '$fine', '$auto', '$cf')";
+
+                if (!mysqli_query($conn, $sql)) {
+                    throw new Exception("Errore nell'inserimento del noleggio: " . mysqli_error($conn));
+                }
+
                 echo "Noleggio inserito con successo.";
-            } else {
-                echo "Errore nell'inserimento del noleggio: " . mysqli_error($conn);
+            } catch (Exception $e) {
+                echo "Errore: " . $e->getMessage();
+            } finally {
+                // Chiusura connessione
+                if (isset($conn) && $conn) {
+                    mysqli_close($conn);
+                }
             }
-
-            // Chiusura connessione
-            mysqli_close($conn);
         ?>
         <a href="/Felici-Popa_EsercitazioneNoleggioAuto/index.html" class="back-to-menu-link">Torna al Menu</a>
     </body>

@@ -10,34 +10,33 @@
         <?php
             include "config.php";
 
-            $codice_noleggio = $_POST['codice_noleggio'] ?? '';
+            try {
+                $codice_noleggio = $_POST['codice_noleggio'] ?? '';
 
-            if (!$codice_noleggio) {
-                echo "Inserisci il codice del noleggio.";
-                exit;
-            }
+                if (!$codice_noleggio) {
+                    throw new Exception("Inserisci il codice del noleggio.");
+                }
 
-            // Connessione al database
-            $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, "Carsharing");
-            if (!$conn) {
-                echo "Errore di connessione al database. " . mysqli_connect_error();
-                exit;
-            }
+                // Connessione al database
+                $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, "Carsharing");
+                if (!$conn) {
+                    throw new Exception("Errore di connessione al database: " . mysqli_connect_error());
+                }
 
-            // Query per ottenere i dati del noleggio e dell'auto
-            $sql = "SELECT Noleggi.*, Auto.costo_giornaliero 
-                    FROM Noleggi 
-                    JOIN Auto ON Noleggi.auto = Auto.targa
-                    WHERE codice_noleggio = $codice_noleggio";
+                // Query per ottenere i dati del noleggio e dell'auto
+                $sql = "SELECT Noleggi.*, Auto.costo_giornaliero 
+                        FROM Noleggi 
+                        JOIN Auto ON Noleggi.auto = Auto.targa
+                        WHERE codice_noleggio = $codice_noleggio";
 
-            if (!$result = mysqli_query($conn, $sql)) {
-                echo "Errore nell'esecuzione della query: " . mysqli_error($conn);
-                exit;
-            }
+                if (!$result = mysqli_query($conn, $sql)) {
+                    throw new Exception("Errore nell'esecuzione della query: " . mysqli_error($conn));
+                }
 
-            if (mysqli_num_rows($result) === 0) {
-                echo "Nessun noleggio trovato con il codice inserito.";
-            } else {
+                if (mysqli_num_rows($result) === 0) {
+                    throw new Exception("Nessun noleggio trovato con il codice inserito.");
+                }
+
                 $row = mysqli_fetch_assoc($result);
 
                 $inizio = $row['inizio'];
@@ -90,9 +89,11 @@
                         <tr><th>Penale per ritardo</th><td>€" . number_format($penale, 2) . "</td></tr>
                         <tr><th>Costi aggiuntivi totali</th><td>€" . number_format($costi_aggiuntivi, 2) . "</td></tr>
                       </table>";
-            }
 
-            mysqli_close($conn);
+                mysqli_close($conn);
+            } catch (Exception $e) {
+                echo "<p style='color: red;'>Errore: " . $e->getMessage() . "</p>";
+            }
         ?>
         <a href="/Felici-Popa_EsercitazioneNoleggioAuto/index.html" class="back-to-menu-link">Torna al Menu</a>
     </body>
